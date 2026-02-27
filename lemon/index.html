@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lemon Clicker</title>
+        <style>
+            #lemonContainer {
+                width: 100%;
+                height: 200px;
+            }
+            #lemon {
+                background-image: url("lemon_pic_1.svg");
+                background-size: cover;
+                background-position: center;
+                width: 150px;
+                height: 119px;
+                position: absolute;
+                left: 80%;
+            }
+            body{
+                background-color: rgb(76, 139, 255);
+            }
+            .btn{
+                display:block;
+                margin-top: 1em ;
+                background-color: aqua;
+                color: rgb(0, 0, 0);
+            }
+            #score{
+                border: 2px solid rgb(255, 255, 0);
+                border-radius: 5px;
+                color: yellow;
+                padding: 1em;
+                width: 300px;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            }
+            #cps{
+                margin: 1em auto;
+                width: 200px;
+                text-align: center;
+            }
+            .controls{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin: 0 1em;
+            }
+            .btn-money{
+                background-color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="score">
+
+        </div>
+        <div id="cps">
+
+        </div>
+        <div id="lemonContainer">
+            <div id="lemon"></div>
+        </div>
+        <div class="controls">
+            <div>
+                <button onclick="addLemonade()" class="btn">Lemonade 20 Lemons</button>
+                <button onclick="addLemonBush()" class="btn">Lemon bush 100 Lemons</button>
+                <button onclick="addLemonTree()" class="btn">Lemon tree 1000 Lemons</button>
+                <button onclick="addLemonCity()" class="btn">Lemon city 10000 Lemons</button>
+                <button onclick="addLemonhenge()" class="btn">Lemonhenge 200000 Lemons</button>
+                <button onclick="addLemofinity()" class="btn">Lemofinity 1000000 Lemons</button>
+                <button onclick="addLime()" class="btn">Lime 1000000 Lemons</button>
+            </div>
+            <div>
+                <button onclick="makeMoney()" class="btn btn-money">Stock markets</button>
+            </div>
+        </div>
+        
+        <script>
+            console.log("hello world")
+            let score = 0;
+            let upgrades = 1;
+            let scoreboard = document.querySelector("#score");
+            let cps = document.querySelector("#cps");
+            let money = 0;
+            let limes = 0;
+
+            
+
+            const moneyBtn = document.querySelector(".btn-money");
+            setInterval(()=>{
+                moneyBtn.style.backgroundColor = "red";
+            }, 5000)
+
+            function makeMoney(){
+                moneyBtn.style.backgroundColor = "white";
+                money = money + 5;
+            }
+
+            function addScore() {
+                score = score + upgrades;
+                scoreboard.innerHTML = score.toString();
+                cpsUpdate();
+            }
+
+            function cpsUpdate() {
+                cps.innerHTML = "Your cps is "+upgrades.toString() + "<br>The amount of money you have is: $" + money + " The amount of limes you have is " + limes;
+            }
+
+            function addLemonade() {
+                if (score < 20) return;
+                score = score - 20;
+                upgrades = upgrades + 1;
+                cpsUpdate();
+            }
+
+            function addLemonBush() {
+                if (score < 100) return;
+                score = score - 100;
+                upgrades = upgrades + 10;
+                cpsUpdate();
+            }
+            function addLemonTree() {
+                if (score < 1000) return;
+                score = score - 1000;
+                upgrades = upgrades + 100;
+                cpsUpdate();
+            }
+            function addLemonCity() {
+                if (score < 10000) return;
+                score = score - 10000;
+                upgrades = upgrades + 500;
+                cpsUpdate();
+            }
+            function addLemonhenge() {
+                if (score < 200000) return;
+                score = score - 200000;
+                upgrades = upgrades + 20000;
+                cpsUpdate();
+            }
+            function addLemofinity() {
+                if (score < 1000000) return;
+                upgrades = upgrades + 50000;
+                cpsUpdate();
+            }
+            function addLime() {
+                if (score < 1000000) return;
+                score = score - 1000000;
+                limes = limes + 1;
+                cpsUpdate();
+            }
+            addScore()
+            setInterval(addScore, 1000);
+        </script>
+
+        <script type="module">
+            import {animate, createSpring, utils} from 'https://cdn.jsdelivr.net/npm/animejs@4.0.2/+esm'
+            animate('#lemon', {
+                scale: [
+                    { to: 1.25, ease: 'inOut(3)', duration: 100 },
+                    { to: 1, ease: createSpring({ stiffness: 500 }) }
+                ],
+                left: [
+                    { to: '0%', ease: 'inOut(3)', duration: 2000 },
+                    { to: '80%', ease: 'inOut(3)', duration: 2000 }
+                ],
+                loop: true,
+                loopDelay: 250,
+            });
+        </script>
+    </body>
+</html>
